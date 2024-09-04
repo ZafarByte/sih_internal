@@ -64,12 +64,15 @@ app.post('/api/register', async (req, res) => {
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
+        console.error('Error in /api/register:', error); // Added debug log
         res.status(500).json({ message: 'Server error', error });
     }
 });
 
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
+
+    console.log('Request body:', req.body); // Debug log
 
     try {
         // Check if user exists
@@ -89,6 +92,7 @@ app.post('/api/login', async (req, res) => {
 
         res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
+        console.error('Error in /api/login:', error); // Added debug log
         res.status(500).json({ message: 'Server error', error });
     }
 });
@@ -121,6 +125,7 @@ app.post('/api/alumni/register', upload.single('profilePicture'), async (req, re
 
         res.status(201).json({ message: 'Alumni registered successfully' });
     } catch (error) {
+        console.error('Error in /api/alumni/register:', error); // Added debug log
         res.status(500).json({ message: 'Server error', error });
     }
 });

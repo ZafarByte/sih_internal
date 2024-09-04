@@ -59,34 +59,39 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent the default form submission
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            // Create a request payload
-            const payload = {
-                email: email,
-                password: password
-            };
+        // Create a request payload
+        const payload = {
+            email: email,
+            password: password
+        };
 
-            try {
-                const response = await axios.post('http://localhost:5000/api/login', payload);
+        try {
+            console.log('Sending login request with payload:', payload); // Debug log
+            const response = await axios.post('http://localhost:5000/api/login', payload);
 
-                if (response.status === 200) {
-                    alert('Login successful!');
-                    // Redirect to another page, e.g., a dashboard or home page
-                    window.location.href = 'StudentHome.html'; // Adjust as needed
-                } else {
-                    alert('Login failed: ' + response.data.message);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+            console.log('Response:', response); // Debug log
+
+            if (response.status === 200) {
+                alert('Login successful!');
+                // Redirect to another page, e.g., a dashboard or home page
+                window.location.href = 'StudentHome.html'; // Adjust as needed
+            } else {
+                alert('Login failed: ' + response.data.message);
             }
-        });
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
     });
+});
+
   </script>
+  
 </body>
 </html>
