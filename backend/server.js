@@ -15,7 +15,6 @@ const Alumni = require('./models/Alumni'); // Import the Alumni model
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET; // Use environment variable for JWT secret
-
 // Middleware
 app.use(cors({
   origin: 'http://127.0.0.1:5500' // Update to match your frontend's origin
@@ -145,16 +144,21 @@ app.post('/api/alumni/login', async (req, res) => {
     console.log('Request body:', req.body); // Debug log
 
     try {
+        // Validate request body
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email and password are required' });
+        }
+
         // Check if user exists
         const user = await Alumni.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         // Generate a JWT token
@@ -162,10 +166,11 @@ app.post('/api/alumni/login', async (req, res) => {
 
         res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
-        console.error('Error in /api/login:', error); // Added debug log
-        res.status(500).json({ message: 'Server error', error });
+        console.error('Error in /api/alumni/login:', error); // Added debug log
+        res.status(500).json({ message: 'Server error' });
     }
 });
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
