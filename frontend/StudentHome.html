@@ -8,6 +8,11 @@
     <link rel="icon" type="image/x-icon" href="/images/graduate-hat.png">
     <script src="https://kit.fontawesome.com/71f49ecb98.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        i{
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,13 +40,14 @@
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900">About Us</a>
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Events</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Job Portal</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Alumni Directory</a>
+                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Events Scheduled</a>
+                    <a href="JobPortal.html" class="text-sm font-semibold leading-6 text-gray-900">Job Portal</a>
+                    <a href="AlumniDirectories.html" class="text-sm font-semibold leading-6 text-gray-900">Alumni Directory</a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="login.html" class="text-sm font-semibold leading-6 text-gray-900">Log in / Sign up <span
-                            aria-hidden="true">&rarr;</span></a>
+                    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"><i class="fa-regular fa-user"> </i></a>
+                    </div>
                 </div>
             </nav>
             <!-- Mobile menu, show/hide based on menu open state. -->
@@ -82,10 +88,8 @@
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Alumni
                                     Directory</a>
                             </div>
-                            <div class="py-6">
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                                    in</a>
+                            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                                <a href="#" class="text-sm font-semibold leading-6 text-gray-900"><i class="fa-regular fa-user"> </i></a>
                             </div>
                         </div>
                     </div>
@@ -116,151 +120,8 @@
                 </div>
             </div>
 
-            <div class="bg-white py-24 sm:py-32">
-                <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                    <section class="mt-12">
-                        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">Alumni Directory</h2>
-                        <div class="overflow-x-auto">
-                            <table class="w-full max-w-7xl mx-auto bg-white border border-gray-300 rounded-lg shadow-lg">
-                                <thead>
-                                    <tr class="bg-gray-200">
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">Picture</th>
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">Name</th>
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">Company</th>
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">Stream</th>
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">City</th>
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">Area of Interest</th>
-                                        <th class="py-4 px-6 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">Batch</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <!-- Record 1 -->
-                                    <tr>
-                                        <td class="py-4 px-6">
-                                            <img class="h-12 w-12 rounded-full object-cover" src="https://via.placeholder.com/150?text=John+Doe" alt="John Doe">
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Google</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Computer Science</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">San Francisco</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Artificial Intelligence</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Batch of 2020</div>
-                                        </td>
-                                    </tr>
-                                    <!-- Record 2 -->
-                                    <tr>
-                                        <td class="py-4 px-6">
-                                            <img class="h-12 w-12 rounded-full object-cover" src="https://via.placeholder.com/150?text=Jane+Smith" alt="Jane Smith">
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm font-medium text-gray-900">Jane Smith</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Microsoft</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Information Technology</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Seattle</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Cybersecurity</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Batch of 2019</div>
-                                        </td>
-                                    </tr>
-                                    <!-- Record 3 -->
-                                    <tr>
-                                        <td class="py-4 px-6">
-                                            <img class="h-12 w-12 rounded-full object-cover" src="https://via.placeholder.com/150?text=Emily+Johnson" alt="Emily Johnson">
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm font-medium text-gray-900">Emily Johnson</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Facebook</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Software Engineering</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">New York</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Data Science</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Batch of 2021</div>
-                                        </td>
-                                    </tr>
-                                    <!-- Record 4 -->
-                                    <tr>
-                                        <td class="py-4 px-6">
-                                            <img class="h-12 w-12 rounded-full object-cover" src="https://via.placeholder.com/150?text=Michael+Brown" alt="Michael Brown">
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm font-medium text-gray-900">Michael Brown</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Amazon</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Information Systems</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Austin</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Cloud Computing</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Batch of 2018</div>
-                                        </td>
-                                    </tr>
-                                    <!-- Record 5 -->
-                                    <tr>
-                                        <td class="py-4 px-6">
-                                            <img class="h-12 w-12 rounded-full object-cover" src="https://via.placeholder.com/150?text=Sarah+Davis" alt="Sarah Davis">
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm font-medium text-gray-900">Sarah Davis</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">IBM</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Mathematics</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Chicago</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Quantum Computing</div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="text-sm text-gray-900">Batch of 2022</div>
-                                        </td>
-                                    </tr>
-                                    <!-- Continue adding unique records as needed -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                </div>
-            </div>
+           
+                    
 
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
                 aria-hidden="true">

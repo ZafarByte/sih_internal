@@ -19,8 +19,8 @@ const JWT_SECRET = process.env.JWT_SECRET; // Use environment variable for JWT s
 app.use(cors({
   origin: 'http://127.0.0.1:5500' // Update to match your frontend's origin
 }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' })); // or use express.json({ limit: '50mb' }) if using Express 4.16+
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Set up the storage engine for file uploads
 const storage = multer.diskStorage({
@@ -58,6 +58,23 @@ mongoose.connect('mongodb+srv://zafargayas3101:zafar3101@cluster0.6sigmjk.mongod
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB:', err));
 
+
+//job post
+const jobSchema = new mongoose.Schema({
+    jobTitle: String,
+    companyName: String,
+    location: String,
+    jobDescription: String,
+    requirements: String,
+    deadline: Date,
+    referId: String,
+    applicationLink: String,
+    image: String // Base64 image string
+});
+
+
+
+const Job = mongoose.model('Job', jobSchema);    
 // User Routes
 app.post('/api/register', async (req, res) => {
     const { name, email, password } = req.body;
@@ -168,6 +185,42 @@ app.post('/api/alumni/login', async (req, res) => {
     } catch (error) {
         console.error('Error in /api/alumni/login:', error); // Added debug log
         res.status(500).json({ message: 'Server error' });
+    }
+});
+  
+
+//alumni directory fetch
+app.get('/api/alumni', async (req, res) => {
+    try {
+        const alumni = await Alumni.find();
+        res.json(alumni);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching alumni data' });
+    }
+});
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
+
+//job post
+app.post('/api/jobs', async (req, res) => {
+    const { jobTitle, companyName, location, jobDescription, requirements, deadline, referId, applicationLink, image } = req.body;
+
+    try {
+        const newJob = new Job({ jobTitle, companyName, location, jobDescription, requirements, deadline, referId, applicationLink, image });
+        await newJob.save();
+        res.status(201).send('Job posted successfully');
+    } catch (error) {
+        res.status(500).send('Error posting job');
+    }
+});
+
+app.get('/api/jobs', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Fetch all jobs from the database
+        res.status(200).json(jobs);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching jobs');
     }
 });
 
