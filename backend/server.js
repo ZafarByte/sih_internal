@@ -139,7 +139,33 @@ app.post('/api/alumni/register', upload.single('profilePicture'), async (req, re
         res.status(500).json({ message: 'Error registering alumni', error });
     }
 });
+app.post('/api/alumni/login', async (req, res) => {
+    const { email, password } = req.body;
 
+    console.log('Request body:', req.body); // Debug log
+
+    try {
+        // Check if user exists
+        const user = await Alumni.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Compare passwords
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Generate a JWT token
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+        res.status(200).json({ message: 'Login successful', token });
+    } catch (error) {
+        console.error('Error in /api/login:', error); // Added debug log
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
 // Start server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

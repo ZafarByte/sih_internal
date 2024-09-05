@@ -16,7 +16,7 @@
     </div>
   
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" id="loginForm">
+      <form class="space-y-6" id="alumniloginForm">
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div class="mt-2">
@@ -58,7 +58,38 @@
   </div>
   
   <script>
-   
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('alumniloginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Create a request payload
+        const payload = {
+            email: email,
+            password: password
+        };
+
+        try {
+            console.log('Sending login request with payload:', payload); // Debug log
+            const response = await axios.post('http://localhost:5000/api/alumni/login', payload);
+
+            console.log('Response:', response); // Debug log
+
+            if (response.status === 200) {
+                alert('Login successful!');
+                // Redirect to another page, e.g., a dashboard or home page
+                window.location.href = 'AlumniHome.html'; // Adjust as needed
+            } else {
+                alert('Login failed: ' + response.data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+});
 
   </script>
   
