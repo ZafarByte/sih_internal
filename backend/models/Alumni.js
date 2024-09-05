@@ -4,12 +4,14 @@ const mongoose = require('mongoose');
 const alumniSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     password: {
         type: String,
@@ -21,15 +23,17 @@ const alumniSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     profilePicture: {
-        type: String, // Path to the profile picture
-        default: ''
+        type: String, // this will store the file path of the uploaded image
+        required: false
     },
     degree: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     graduationYear: {
         type: Number,
@@ -37,25 +41,31 @@ const alumniSchema = new mongoose.Schema({
     },
     stream: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     currentEmployer: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     jobTitle: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     bio: {
         type: String,
-        default: ''
+        required: false,
+        trim: true
+    },
+    dateRegistered: {
+        type: Date,
+        default: Date.now
     }
-}, {
-    timestamps: true // Automatically add createdAt and updatedAt fields
 });
 
-// Create the Alumni model from the schema
+// Create the model from the schema and export it
 const Alumni = mongoose.model('Alumni', alumniSchema);
 
 module.exports = Alumni;

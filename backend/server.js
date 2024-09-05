@@ -23,18 +23,33 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Multer setup for file uploads
-const upload = multer({
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, 'uploads/'); // Define upload directory
-        },
-        filename: (req, file, cb) => {
-            cb(null, Date.now() + path.extname(file.originalname)); // Define file naming convention
-        }
-    }),
-    limits: { fileSize: 2 * 1024 * 1024 } // Limit file size to 2MB
+// Set up the storage engine for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Destination folder for file uploads
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Rename file with a timestamp to ensure uniqueness
+    }
 });
+
+// Initialize the upload middleware
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 }, // Limit file size to 1MB
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+
+        if (extname && mimetype) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Images only!'));
+        }
+    }
+});
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://zafargayas3101:zafar3101@cluster0.6sigmjk.mongodb.net/Alumni', {
@@ -96,17 +111,13 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 });
-
-// Alumni Routes
+//alumni route
 app.post('/api/alumni/register', upload.single('profilePicture'), async (req, res) => {
     const { name, email, password, dob, phone, degree, graduationYear, stream, currentEmployer, jobTitle, bio } = req.body;
-    const profilePicture = req.file ? req.file.path : '';
+    const profilePicture = req.file ? req.file.path : null;
 
     try {
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create new alumni
+        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
         const newAlumni = new Alumni({
             name,
             email,
@@ -121,12 +132,11 @@ app.post('/api/alumni/register', upload.single('profilePicture'), async (req, re
             jobTitle,
             bio
         });
-        await newAlumni.save();
 
+        await newAlumni.save();
         res.status(201).json({ message: 'Alumni registered successfully' });
     } catch (error) {
-        console.error('Error in /api/alumni/register:', error); // Added debug log
-        res.status(500).json({ message: 'Server error', error });
+        res.status(500).json({ message: 'Error registering alumni', error });
     }
 });
 

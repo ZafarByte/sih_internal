@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni | Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <style>
         .alert {
             padding: 1rem;
@@ -171,37 +169,37 @@
             <div id="alertContainer"></div>
         </div>
     </div>
-        <script>
-    async function handleSubmit(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        const formData = new FormData(document.getElementById('registerForm'));
-        try {
-            const response = await axios.post('http://localhost:5000/api/alumni/register', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-
-            // Handle success response
-            showAlert('Registration successful!', 'alert-success');
-        } catch (error) {
-            // Handle error response
-            showAlert('Registration failed. Please try again.', 'alert-error');
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault(); // Prevent form from submitting the default way
+    
+            // Get the form element
+            const form = document.getElementById('registerForm');
+    
+            // Create a FormData object to handle file uploads and other fields
+            const formData = new FormData(form);
+    
+            try {
+                // Send the POST request using Axios
+                const response = await axios.post('http://localhost:5000/api/alumni/register', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data' // Set the correct content type for file uploads
+                    }
+                });
+    
+                // Handle success
+                document.getElementById('alertContainer').innerHTML = `<div class="alert alert-success">Registration Successful!</div>`;
+                console.log('Response:', response.data);
+            } catch (error) {
+                // Handle error
+                document.getElementById('alertContainer').innerHTML = `<div class="alert alert-error">Registration Failed: ${error.response ? error.response.data : error.message}</div>`;
+                console.error('Error:', error);
+            }
         }
-    }
-
-    function showAlert(message, type) {
-        const alertContainer = document.getElementById('alertContainer');
-        const alert = document.createElement('div');
-        alert.className = `alert ${type}`;
-        alert.textContent = message;
-        alertContainer.innerHTML = '';
-        alertContainer.appendChild(alert);
-    }
-</script>
-
-
+    </script>
+    
+  
 </body>
 
 </html>
